@@ -22,5 +22,10 @@ class Assets {
 
         wp_enqueue_style( 'awesome-motive-block-style' );
         wp_enqueue_script( 'awesome-motive-block-script' );
+
+        wp_localize_script( 'awesome-motive-block-script', 'am_data', [
+            'nonce' => wp_create_nonce( 'am_nonce' ),
+            'ajax_url' => admin_url( 'admin-ajax.php' ),
+        ]);
     }
 }

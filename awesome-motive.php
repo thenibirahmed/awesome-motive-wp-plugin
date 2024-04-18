@@ -36,6 +36,10 @@ final class AwesomeMotive {
 
         new AwesomeMotive\Assets();
 
+        if( defined('DOING_AJAX') && DOING_AJAX ) {
+            new AwesomeMotive\Ajax();
+        }
+
         if( is_admin() ) {
             new AwesomeMotive\Admin();
         } else {

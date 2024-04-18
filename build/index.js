@@ -104,14 +104,47 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
 
 
+const {
+  useState,
+  useEffect
+} = wp.element;
 wp.blocks.registerBlockType('awesome-motive/table-block', {
   title: 'AM Table Block',
   icon: 'smiley',
   category: 'common',
-  edit: AwesomeMotiveTableBlock,
-  save: null
+  attributes: {
+    tableHeaders: {
+      type: 'object'
+    }
+  },
+  edit: AwesomeMotiveTableBlock
 });
 function AwesomeMotiveTableBlock() {
+  const [data, setData] = useState({});
+  useEffect(() => {
+    getTableData();
+  }, []);
+  function getStatus() {
+    return data.success;
+  }
+  function getTableData() {
+    jQuery.ajax({
+      url: am_data.ajax_url,
+      data: {
+        action: 'am_get_table_data',
+        nonce: am_data.nonce
+      },
+      type: 'GET',
+      success: function (response) {
+        if (response.success) {
+          setData(response);
+        }
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "awesome-motive-table-block"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h4", null, "Awesome Motive Table Block"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("table", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", null, "Row 1 Column 1"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", null, "Row 1 Column 2")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, "Row 2 Column 1"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, "Row 2 Column 2")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, "Row 3 Column 1"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, "Row 3 Column 2"))));
