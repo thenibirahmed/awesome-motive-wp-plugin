@@ -1,0 +1,19 @@
+{
+    "name": "nibirahmed/awesome-motive",
+    "type": "wordpress-plugin",
+    "license": "GPLv2",
+    "authors": [
+        {
+            "name": "Nibir Ahmed",
+            "email": "nibirahmed9611@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "AwesomeMotive\\": "includes/"
+        },
+        "files": []
+    }
+}

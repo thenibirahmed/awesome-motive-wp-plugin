@@ -14,13 +14,24 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+require_once __DIR__ . '/vendor/autoload.php';
+
 /**
  * Main Plugin Class
  */
 final class AwesomeMotive {
 
     private function __construct() {
-        $this->define_constants()
+        $this->define_constants();
+    }
+
+    /**
+     * Initialize the plugin core functionalities
+     *
+     * @return void
+     */
+    public function init_plugin() {
+        
     }
 
     /**
