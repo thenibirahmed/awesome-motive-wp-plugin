@@ -1,8 +1,8 @@
 <?php  
 
 /**
- * Plugin Name: Awesome Motive
- * Plugin URI: https://awesomemotive.com
+ * Plugin Name: Nibir Ahmed
+ * Plugin URI: https://nibirahmed.com
  * Description: This is a plugin that does awesome things.
  * Version: 1.0
  * Author: Nibir Ahmed

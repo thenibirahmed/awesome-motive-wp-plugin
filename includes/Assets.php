@@ -18,7 +18,7 @@ class Assets {
 
     public function register_block_assets() {
         wp_register_style( 'awesome-motive-block-style', AWESOME_MOTIVE_URL . '/build/index.css' );
-        wp_register_script( 'awesome-motive-block-script', AWESOME_MOTIVE_URL . '/build/index.js', ['wp-blocks', 'wp-element', 'wp-editor'], AWESOME_MOTIVE_VERSION, true );
+        wp_register_script( 'awesome-motive-block-script', AWESOME_MOTIVE_URL . '/build/index.js', ['wp-blocks', 'wp-element', 'wp-editor', 'wp-components'], AWESOME_MOTIVE_VERSION, true );
 
         wp_enqueue_style( 'awesome-motive-block-style' );
         wp_enqueue_script( 'awesome-motive-block-script' );

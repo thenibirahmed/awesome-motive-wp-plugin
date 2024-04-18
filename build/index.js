@@ -106,10 +106,10 @@ __webpack_require__.r(__webpack_exports__);
 
 wp.blocks.registerBlockType('awesome-motive/table-block', {
   title: 'AM Table Block',
-  icon: 'table',
+  icon: 'smiley',
   category: 'common',
   edit: AwesomeMotiveTableBlock,
-  save: AwesomeMotiveTableBlock
+  save: null
 });
 function AwesomeMotiveTableBlock() {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {

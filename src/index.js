@@ -2,10 +2,10 @@ import './index.scss';
 
 wp.blocks.registerBlockType( 'awesome-motive/table-block', {
     title: 'AM Table Block',
-    icon: 'table',
+    icon: 'smiley',
     category: 'common',
     edit: AwesomeMotiveTableBlock,
-    save: AwesomeMotiveTableBlock,
+    save: null,
 } );
 
 function AwesomeMotiveTableBlock() {
