@@ -1,1 +1,0 @@
-alert('Awesome motive plugin working')
