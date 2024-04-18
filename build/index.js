@@ -145,6 +145,8 @@ function AwesomeMotiveTableBlock() {
         success: function (response) {
           if (response.success) {
             setTableData(JSON.parse(response.data));
+          } else {
+            console.error('Error fetching table data, Response: ', response);
           }
         },
         error: function (error) {
@@ -160,7 +162,11 @@ function AwesomeMotiveTableBlock() {
   }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "awesome-motive-table-block"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h4", null, getTableTitle()), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("table", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, getHeaders().map(header => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", null, header))), Object.values(getTableBody()).map(row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, Object.values(row).map(column => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, column))))));
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h4", null, getTableTitle()), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("table", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, getHeaders().map(header => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", null, header))), Object.values(getTableBody()).map((row, rowIndex) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", {
+    key: rowIndex
+  }, Object.values(row).map((column, columnIndex) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", {
+    key: columnIndex
+  }, column))))));
 }
 })();
 

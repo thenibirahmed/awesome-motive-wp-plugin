@@ -9,7 +9,12 @@ class Ajax {
     }
 
     public function get_table_data() {
-        delete_transient('am_table_data');
+        $nonce = $_REQUEST['nonce'];
+
+        if ( !wp_verify_nonce($nonce, 'am-nonce') ) {
+            wp_send_json_error( 'Invalid nonce' );
+        }
+
         $api_data = wp_remote_get('https://miusage.com/v1/challenge/1/');
         wp_send_json_success( wp_remote_retrieve_body($api_data) );
 

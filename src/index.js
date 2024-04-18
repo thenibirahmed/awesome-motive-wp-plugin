@@ -45,6 +45,8 @@ function AwesomeMotiveTableBlock() {
                 success: function(response) {
                     if(response.success){
                         setTableData(JSON.parse(response.data));
+                    }else{
+                        console.error('Error fetching table data, Response: ', response);
                     }
                 },
                 error: function(error) {
@@ -70,10 +72,10 @@ function AwesomeMotiveTableBlock() {
                         <th>{header}</th>
                     ))}
                 </tr>
-                { Object.values(getTableBody()).map((row) => (
-                    <tr>
-                        { Object.values(row).map((column) => (
-                            <td>{column}</td>
+                { Object.values(getTableBody()).map((row, rowIndex) => (
+                    <tr key={rowIndex}>
+                        {Object.values(row).map((column, columnIndex) => (
+                            <td key={columnIndex}>{column}</td>
                         ))}
                     </tr>
                 ))}

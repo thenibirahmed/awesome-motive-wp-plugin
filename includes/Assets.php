@@ -12,7 +12,7 @@ class Assets {
         wp_register_style( 'awesome-motive-style', AWESOME_MOTIVE_ASSETS . '/css/style.css' );
         wp_register_script( 'awesome-motive-script', AWESOME_MOTIVE_ASSETS . '/js/index.js', [], AWESOME_MOTIVE_VERSION, true );
 
-        // wp_enqueue_style( 'awesome-motive-style' );
+        wp_enqueue_style( 'awesome-motive-style' );
         // wp_enqueue_script( 'awesome-motive-script' );
     }
 
@@ -24,7 +24,7 @@ class Assets {
         wp_enqueue_script( 'awesome-motive-block-script' );
 
         wp_localize_script( 'awesome-motive-block-script', 'am_data', [
-            'nonce' => wp_create_nonce( 'am_nonce' ),
+            'nonce' => wp_create_nonce( 'am-nonce' ),
             'ajax_url' => admin_url( 'admin-ajax.php' ),
         ]);
     }
