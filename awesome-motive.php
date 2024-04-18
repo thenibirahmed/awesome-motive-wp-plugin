@@ -23,6 +23,8 @@ final class AwesomeMotive {
 
     private function __construct() {
         $this->define_constants();
+
+        add_action( 'plugins_loaded', [ $this, 'init_plugin' ]);
     }
 
     /**
@@ -31,7 +33,11 @@ final class AwesomeMotive {
      * @return void
      */
     public function init_plugin() {
-        
+        if( is_admin() ) {
+            new AwesomeMotive\Admin();
+        } else {
+            new AwesomeMotive\Frontend();
+        }
     }
 
     /**
