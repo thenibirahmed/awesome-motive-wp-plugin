@@ -133,8 +133,8 @@ function AwesomeMotiveTableBlock() {
   function getTableBody() {
     return JSON.parse(tableData.data).data.rows;
   }
-  function fetchTableData() {
-    jQuery.ajax({
+  async function fetchTableData() {
+    await jQuery.ajax({
       url: am_data.ajax_url,
       data: {
         action: 'am_get_table_data',
