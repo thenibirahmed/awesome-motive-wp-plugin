@@ -33,6 +33,9 @@ final class AwesomeMotive {
      * @return void
      */
     public function init_plugin() {
+
+        new AwesomeMotive\Assets();
+
         if( is_admin() ) {
             new AwesomeMotive\Admin();
         } else {
