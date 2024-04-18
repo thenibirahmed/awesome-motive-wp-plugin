@@ -125,35 +125,38 @@ function AwesomeMotiveTableBlock() {
     fetchTableData();
   }, []);
   function getTableTitle() {
-    return JSON.parse(tableData.data).title;
+    return tableData?.title;
   }
   function getHeaders() {
-    return JSON.parse(tableData.data).data.headers;
+    return tableData?.data.headers;
   }
   function getTableBody() {
-    return JSON.parse(tableData.data).data.rows;
+    return tableData?.data.rows;
   }
   async function fetchTableData() {
-    await jQuery.ajax({
-      url: am_data.ajax_url,
-      data: {
-        action: 'am_get_table_data',
-        nonce: am_data.nonce
-      },
-      type: 'GET',
-      success: function (response) {
-        console.log(JSON.parse(response.data).data.rows);
-        if (response.success) {
-          setTableData(response);
+    try {
+      await jQuery.ajax({
+        url: am_data.ajax_url,
+        data: {
+          action: 'am_get_table_data',
+          nonce: am_data.nonce
+        },
+        type: 'GET',
+        success: function (response) {
+          if (response.success) {
+            setTableData(JSON.parse(response.data));
+          }
+        },
+        error: function (error) {
+          console.log(error);
         }
-      },
-      error: function (error) {
-        console.log(error);
-      }
-    });
+      });
+    } catch (error) {
+      console.log('Error fetching table data');
+    }
   }
   if (!tableData) {
-    return;
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "Loading...");
   }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "awesome-motive-table-block"
