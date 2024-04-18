@@ -120,14 +120,20 @@ wp.blocks.registerBlockType('awesome-motive/table-block', {
   edit: AwesomeMotiveTableBlock
 });
 function AwesomeMotiveTableBlock() {
-  const [data, setData] = useState({});
+  const [tableData, setTableData] = useState();
   useEffect(() => {
-    getTableData();
+    fetchTableData();
   }, []);
-  function getStatus() {
-    return data.success;
+  function getTableTitle() {
+    return JSON.parse(tableData.data).title;
   }
-  function getTableData() {
+  function getHeaders() {
+    return JSON.parse(tableData.data).data.headers;
+  }
+  function getTableBody() {
+    return JSON.parse(tableData.data).data.rows;
+  }
+  function fetchTableData() {
     jQuery.ajax({
       url: am_data.ajax_url,
       data: {
@@ -136,8 +142,9 @@ function AwesomeMotiveTableBlock() {
       },
       type: 'GET',
       success: function (response) {
+        console.log(JSON.parse(response.data).data.rows);
         if (response.success) {
-          setData(response);
+          setTableData(response);
         }
       },
       error: function (error) {
@@ -145,9 +152,12 @@ function AwesomeMotiveTableBlock() {
       }
     });
   }
+  if (!tableData) {
+    return;
+  }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "awesome-motive-table-block"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h4", null, "Awesome Motive Table Block"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("table", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", null, "Row 1 Column 1"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", null, "Row 1 Column 2")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, "Row 2 Column 1"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, "Row 2 Column 2")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, "Row 3 Column 1"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, "Row 3 Column 2"))));
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h4", null, getTableTitle()), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("table", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, getHeaders().map(header => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", null, header))), Object.values(getTableBody()).map(row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, Object.values(row).map(column => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, column))))));
 }
 })();
 

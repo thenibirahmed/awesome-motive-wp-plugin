@@ -14,17 +14,25 @@ wp.blocks.registerBlockType( 'awesome-motive/table-block', {
 
 function AwesomeMotiveTableBlock() {
 
-    const [data, setData] = useState({});
+    const [tableData, setTableData] = useState();
 
     useEffect(() => {
-        getTableData();
+        fetchTableData();
     }, []);
 
-    function getStatus() {
-        return data.success;
+    function getTableTitle() {
+        return JSON.parse(tableData.data).title;
     }
 
-    function getTableData() {
+    function getHeaders() {
+        return JSON.parse(tableData.data).data.headers;
+    }
+
+    function getTableBody() {
+        return JSON.parse(tableData.data).data.rows;
+    }
+
+    function fetchTableData() {
         jQuery.ajax({
             url: am_data.ajax_url,
             data: {
@@ -33,8 +41,9 @@ function AwesomeMotiveTableBlock() {
             },
             type: 'GET',
             success: function(response) {
+                console.log(JSON.parse(response.data).data.rows);
                 if(response.success){
-                    setData(response);
+                    setTableData(response);
                 }
             },
             error: function(error) {
@@ -43,23 +52,27 @@ function AwesomeMotiveTableBlock() {
         });
     }
 
+    if(!tableData){
+        return;
+    }
 
     return (
         <div className="awesome-motive-table-block">
-            <h4>Awesome Motive Table Block</h4>  
+            <h4>{ getTableTitle() }</h4>  
+
             <table>
                 <tr>
-                    <th>Row 1 Column 1</th>
-                    <th>Row 1 Column 2</th>
+                    {getHeaders().map((header) => (
+                        <th>{header}</th>
+                    ))}
                 </tr>
-                <tr>
-                    <td>Row 2 Column 1</td>
-                    <td>Row 2 Column 2</td>
-                </tr>
-                <tr>
-                    <td>Row 3 Column 1</td>
-                    <td>Row 3 Column 2</td>
-                </tr>
+                { Object.values(getTableBody()).map((row) => (
+                    <tr>
+                        { Object.values(row).map((column) => (
+                            <td>{column}</td>
+                        ))}
+                    </tr>
+                ))}
             </table>
         </div>
     );
