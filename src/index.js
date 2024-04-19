@@ -37,6 +37,10 @@ function AwesomeMotiveTableBlock(props) {
         return tableData?.data.rows;
     }
 
+    function getHiddenColumns() {
+        return props.attributes.hiddenColumns ?? [];
+    }
+
     function fetchTableData() {
         try {
             jQuery.ajax({
@@ -78,12 +82,12 @@ function AwesomeMotiveTableBlock(props) {
                         <PanelRow key={header}>
                             <CheckboxControl
                                 label={header}
-                                checked={ props.attributes.hiddenColumns.includes(header) }
+                                checked={ getHiddenColumns().includes(header) }
                                 onChange={ (hidden) => {
                                     if(hidden){
-                                        setHiddenColumns([...props.attributes.hiddenColumns, header]);
+                                        setHiddenColumns([...getHiddenColumns(), header]);
                                     }else{
-                                        setHiddenColumns(props.attributes.hiddenColumns.filter((column) => column !== header));
+                                        setHiddenColumns(getHiddenColumns().filter((column) => column !== header));
                                     }
                                 }}
                             />
@@ -96,14 +100,14 @@ function AwesomeMotiveTableBlock(props) {
             <table>
                 <tr>
                     {getHeaders().map((header) => (
-                        !props.attributes.hiddenColumns.includes(header) &&
+                        !getHiddenColumns().includes(header) &&
                         <th>{header}</th>
                     ))}
                 </tr>
                 {Object.values(getTableBody()).map((row, rowIndex) => (
                     <tr key={rowIndex}>
                         {Object.values(row).map((column, columnIndex) => (
-                            !props.attributes.hiddenColumns.includes(getHeaders()[columnIndex]) &&
+                            !getHiddenColumns().includes(getHeaders()[columnIndex]) &&
                             <td key={columnIndex}>{column}</td>
                         ))}
                     </tr>

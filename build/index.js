@@ -176,6 +176,10 @@ function AwesomeMotiveTableBlock(props) {
   function getTableBody() {
     return tableData?.data.rows;
   }
+  function getHiddenColumns() {
+    var _props$attributes$hid;
+    return (_props$attributes$hid = props.attributes.hiddenColumns) !== null && _props$attributes$hid !== void 0 ? _props$attributes$hid : [];
+  }
   function fetchTableData() {
     try {
       jQuery.ajax({
@@ -216,17 +220,17 @@ function AwesomeMotiveTableBlock(props) {
     key: header
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.CheckboxControl, {
     label: header,
-    checked: props.attributes.hiddenColumns.includes(header),
+    checked: getHiddenColumns().includes(header),
     onChange: hidden => {
       if (hidden) {
-        setHiddenColumns([...props.attributes.hiddenColumns, header]);
+        setHiddenColumns([...getHiddenColumns(), header]);
       } else {
-        setHiddenColumns(props.attributes.hiddenColumns.filter(column => column !== header));
+        setHiddenColumns(getHiddenColumns().filter(column => column !== header));
       }
     }
-  }))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h4", null, getTableTitle()), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("table", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, getHeaders().map(header => !props.attributes.hiddenColumns.includes(header) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", null, header))), Object.values(getTableBody()).map((row, rowIndex) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", {
+  }))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h4", null, getTableTitle()), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("table", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, getHeaders().map(header => !getHiddenColumns().includes(header) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", null, header))), Object.values(getTableBody()).map((row, rowIndex) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", {
     key: rowIndex
-  }, Object.values(row).map((column, columnIndex) => !props.attributes.hiddenColumns.includes(getHeaders()[columnIndex]) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", {
+  }, Object.values(row).map((column, columnIndex) => !getHiddenColumns().includes(getHeaders()[columnIndex]) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", {
     key: columnIndex
   }, column))))));
 }
