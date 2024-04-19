@@ -45,6 +45,10 @@ final class AwesomeMotive {
         } else {
             new AwesomeMotive\Frontend();
         }
+
+        if ( class_exists( 'WP_CLI' ) ) {
+            new AwesomeMotive\CLI();
+        }
     }
 
     /**
