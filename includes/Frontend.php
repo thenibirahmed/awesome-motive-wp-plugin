@@ -16,24 +16,40 @@ class Frontend {
     }
 
     public function render_am_table_block( $attributes ) {
-        $table_data = [
-            [ 'Name', 'Age', 'Country' ],
-            [ 'John Doe', 30, 'USA' ],
-            [ 'Jane Doe', 25, 'UK' ],
-            [ 'Ahmed', 35, 'Egypt' ],
-        ];
+        $api_data = wp_remote_get('https://miusage.com/v1/challenge/1/');
+
+        if ( is_wp_error( $api_data ) ) {
+            return 'Error fetching data';
+        }
+        
+        $table_data = json_decode(wp_remote_retrieve_body( $api_data ));
+        $title = $table_data->title ?? 'Table';
+        $headers = $table_data->data->headers ?? [];
+        $rows = $table_data->data->rows ?? [];
 
         ob_start();
         ?>
-        <table class="am-table">
-            <?php foreach( $table_data as $row ) : ?>
-                <tr>
-                    <?php foreach( $row as $cell ) : ?>
-                        <td><?php echo $cell; ?></td>
+        <div class="awesome-motive-table-block">
+            <h3><?php echo $title ?></h3>
+            <table>
+                <thead>
+                    <tr>
+                        <?php foreach( $headers as $header ): ?>
+                            <th><?php echo $header ?></th>
+                        <?php endforeach ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach( $rows as $row ) : ?>
+                        <tr>
+                            <?php foreach( $row as $cell ) : ?>
+                                <td><?php echo $cell; ?></td>
+                            <?php endforeach; ?>
+                        </tr>
                     <?php endforeach; ?>
-                </tr>
-            <?php endforeach; ?>
-        </table>
+                </tbody>
+            </table>
+        </div>
         <?php
         return ob_get_clean();
     }
