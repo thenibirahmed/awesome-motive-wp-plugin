@@ -2,6 +2,7 @@ import './index.scss';
 
 import { PanelBody, PanelRow, CheckboxControl} from '@wordpress/components';
 import { InspectorControls } from '@wordpress/block-editor';
+import { __ } from '@wordpress/i18n';
 
 const { useState, useEffect } = wp.element;
 
@@ -19,7 +20,6 @@ wp.blocks.registerBlockType( 'awesome-motive/table-block', {
 function AwesomeMotiveTableBlock(props) {
 
     const [tableData, setTableData] = useState();
-    // const [hiddenColumns, setHiddenColumns] = useState([]);
 
     useEffect(() => {
         fetchTableData();
@@ -50,7 +50,7 @@ function AwesomeMotiveTableBlock(props) {
                     if(response.success){
                         setTableData(JSON.parse(response.data));
                     }else{
-                        console.error('Error fetching table data, Response: ', response);
+                        console.error( __('Error fetching table data, Response: ', 'awesome-motive'), response );
                     }
                 },
                 error: function(error) {
@@ -58,7 +58,7 @@ function AwesomeMotiveTableBlock(props) {
                 }
             });
         }catch(error){
-            console.error('Error fetching table data');
+            console.error( __('Error fetching table data', 'awesome-motive') );
         }
     }
 
@@ -73,7 +73,7 @@ function AwesomeMotiveTableBlock(props) {
     return (
         <div className="awesome-motive-table-block">
             <InspectorControls>
-                <PanelBody title="Hide Columns">
+                <PanelBody title={ __('Hide Columns', 'awesome-motive') }>
                     {getHeaders().map((header) => (
                         <PanelRow key={header}>
                             <CheckboxControl

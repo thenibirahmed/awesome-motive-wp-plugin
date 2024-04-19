@@ -16,34 +16,41 @@ class Frontend {
     }
 
     public function render_am_table_block( $attributes ) {
-        $api_data = wp_remote_get('https://miusage.com/v1/challenge/1/');
+        $api_data = Ajax::fetch_table_data_from_api();
 
-        if ( is_wp_error( $api_data ) ) {
-            return 'Error fetching data';
+        if ( ! $api_data ) {
+            return __('Error fetching data', 'awesome-motive');
         }
         
-        $table_data = json_decode(wp_remote_retrieve_body( $api_data ));
-        $title = $table_data->title ?? 'Table';
+        $table_data = json_decode( $api_data );
+
+        $title = $table_data->title ?? __('Table', 'awesome-motive');
         $headers = $table_data->data->headers ?? [];
         $rows = $table_data->data->rows ?? [];
-
+        
+        $hidden_columns = $attributes['hiddenColumns'];
         ob_start();
         ?>
         <div class="awesome-motive-table-block">
-            <h3><?php echo $title ?></h3>
+            <h4><?php echo esc_html($title) ?></h4>
             <table>
                 <thead>
                     <tr>
                         <?php foreach( $headers as $header ): ?>
-                            <th><?php echo $header ?></th>
+                            <?php echo !in_array($header, $hidden_columns) ? "<th>". esc_html($header) ."</th>" : "" ?>
                         <?php endforeach ?>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach( $rows as $row ) : ?>
                         <tr>
-                            <?php foreach( $row as $cell ) : ?>
-                                <td><?php echo $cell; ?></td>
+                            <?php 
+                            $i = 0;
+                            foreach( $row as $cell ) : ?>
+                                <?php 
+                                    echo !in_array($headers[$i], $hidden_columns) ? "<td>". esc_html($cell) ."</td>" : "";
+                                    $i++;
+                                ?>
                             <?php endforeach; ?>
                         </tr>
                     <?php endforeach; ?>

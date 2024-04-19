@@ -42,6 +42,16 @@ module.exports = window["wp"]["blockEditor"];
 
 module.exports = window["wp"]["components"];
 
+/***/ }),
+
+/***/ "@wordpress/i18n":
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["i18n"];
+
 /***/ })
 
 /******/ 	});
@@ -126,6 +136,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__);
+
 
 
 
@@ -151,8 +164,6 @@ wp.blocks.registerBlockType('awesome-motive/table-block', {
 });
 function AwesomeMotiveTableBlock(props) {
   const [tableData, setTableData] = useState();
-  // const [hiddenColumns, setHiddenColumns] = useState([]);
-
   useEffect(() => {
     fetchTableData();
   }, []);
@@ -178,7 +189,7 @@ function AwesomeMotiveTableBlock(props) {
           if (response.success) {
             setTableData(JSON.parse(response.data));
           } else {
-            console.error('Error fetching table data, Response: ', response);
+            console.error((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Error fetching table data, Response: ', 'awesome-motive'), response);
           }
         },
         error: function (error) {
@@ -186,7 +197,7 @@ function AwesomeMotiveTableBlock(props) {
         }
       });
     } catch (error) {
-      console.error('Error fetching table data');
+      console.error((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Error fetching table data', 'awesome-motive'));
     }
   }
   function setHiddenColumns(hiddenColumns) {
@@ -200,7 +211,7 @@ function AwesomeMotiveTableBlock(props) {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "awesome-motive-table-block"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
-    title: "Hide Columns"
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Hide Columns', 'awesome-motive')
   }, getHeaders().map(header => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelRow, {
     key: header
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.CheckboxControl, {

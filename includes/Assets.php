@@ -9,6 +9,11 @@ class Assets {
         add_action( 'enqueue_block_editor_assets', [ $this, 'register_block_assets' ]);
     }
 
+    /**
+     * Register the plugin assets
+     *
+     * @return void
+     */
     public function register_assets() {
         wp_register_style( 'awesome-motive-style', AWESOME_MOTIVE_ASSETS . '/css/style.css' );
         wp_register_script( 'awesome-motive-script', AWESOME_MOTIVE_ASSETS . '/js/index.js', [], AWESOME_MOTIVE_VERSION, true );
@@ -17,6 +22,11 @@ class Assets {
         // wp_enqueue_script( 'awesome-motive-script' );
     }
 
+    /**
+     * Register the block assets
+     *
+     * @return void
+     */
     public function register_block_assets() {
         wp_register_style( 'awesome-motive-block-style', AWESOME_MOTIVE_URL . '/build/index.css' );
         wp_register_script( 'awesome-motive-block-script', AWESOME_MOTIVE_URL . '/build/index.js', ['wp-blocks', 'wp-element', 'wp-editor', 'wp-components'], AWESOME_MOTIVE_VERSION, true );
