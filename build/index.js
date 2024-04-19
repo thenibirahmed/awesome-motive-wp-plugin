@@ -22,6 +22,26 @@ __webpack_require__.r(__webpack_exports__);
 
 module.exports = window["React"];
 
+/***/ }),
+
+/***/ "@wordpress/block-editor":
+/*!*************************************!*\
+  !*** external ["wp","blockEditor"] ***!
+  \*************************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["blockEditor"];
+
+/***/ }),
+
+/***/ "@wordpress/components":
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["components"];
+
 /***/ })
 
 /******/ 	});
@@ -102,6 +122,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__);
+
+
 
 
 const {
@@ -115,12 +141,18 @@ wp.blocks.registerBlockType('awesome-motive/table-block', {
   attributes: {
     tableHeaders: {
       type: 'object'
+    },
+    hiddenColumns: {
+      type: 'array',
+      default: []
     }
   },
   edit: AwesomeMotiveTableBlock
 });
-function AwesomeMotiveTableBlock() {
+function AwesomeMotiveTableBlock(props) {
   const [tableData, setTableData] = useState();
+  // const [hiddenColumns, setHiddenColumns] = useState([]);
+
   useEffect(() => {
     fetchTableData();
   }, []);
@@ -133,9 +165,9 @@ function AwesomeMotiveTableBlock() {
   function getTableBody() {
     return tableData?.data.rows;
   }
-  async function fetchTableData() {
+  function fetchTableData() {
     try {
-      await jQuery.ajax({
+      jQuery.ajax({
         url: am_data.ajax_url,
         data: {
           action: 'am_get_table_data',
@@ -150,21 +182,40 @@ function AwesomeMotiveTableBlock() {
           }
         },
         error: function (error) {
-          console.log(error);
+          console.error(error);
         }
       });
     } catch (error) {
-      console.log('Error fetching table data');
+      console.error('Error fetching table data');
     }
+  }
+  function setHiddenColumns(hiddenColumns) {
+    props.setAttributes({
+      hiddenColumns
+    });
   }
   if (!tableData) {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "Loading...");
   }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "awesome-motive-table-block"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h4", null, getTableTitle()), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("table", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, getHeaders().map(header => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", null, header))), Object.values(getTableBody()).map((row, rowIndex) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+    title: "Hide Columns"
+  }, getHeaders().map(header => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelRow, {
+    key: header
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.CheckboxControl, {
+    label: header,
+    checked: props.attributes.hiddenColumns.includes(header),
+    onChange: hidden => {
+      if (hidden) {
+        setHiddenColumns([...props.attributes.hiddenColumns, header]);
+      } else {
+        setHiddenColumns(props.attributes.hiddenColumns.filter(column => column !== header));
+      }
+    }
+  }))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h4", null, getTableTitle()), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("table", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", null, getHeaders().map(header => !props.attributes.hiddenColumns.includes(header) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", null, header))), Object.values(getTableBody()).map((row, rowIndex) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", {
     key: rowIndex
-  }, Object.values(row).map((column, columnIndex) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", {
+  }, Object.values(row).map((column, columnIndex) => !props.attributes.hiddenColumns.includes(getHeaders()[columnIndex]) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", {
     key: columnIndex
   }, column))))));
 }
