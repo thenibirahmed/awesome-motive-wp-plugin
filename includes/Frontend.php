@@ -28,7 +28,7 @@ class Frontend {
         $headers = $table_data->data->headers ?? [];
         $rows = $table_data->data->rows ?? [];
         
-        $hidden_columns = $attributes['hiddenColumns'];
+        $hidden_columns = $attributes['hiddenColumns'] ?? [];
         ob_start();
         ?>
         <div class="awesome-motive-table-block">
