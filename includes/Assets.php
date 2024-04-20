@@ -48,5 +48,10 @@ class Assets {
         wp_register_script( 'awesome-motive-script', AWESOME_MOTIVE_ASSETS . '/js/script.js', [], AWESOME_MOTIVE_VERSION, true );
         
         wp_enqueue_script( 'awesome-motive-script' );
+
+        wp_localize_script( 'awesome-motive-script', 'am_admin_data', [
+            'nonce' => wp_create_nonce( 'am-nonce' ),
+            'ajax_url' => admin_url( 'admin-ajax.php' ),
+        ]);
     }
 }

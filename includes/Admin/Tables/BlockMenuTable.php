@@ -16,7 +16,6 @@ class BlockMenuTable extends \WP_List_Table{
             'ajax'     => true
         ) );
 
-        add_action( 'wp_ajax_am-refresh-table-data', array( $this, 'ajax_response' ) );
     }
 
     /**
