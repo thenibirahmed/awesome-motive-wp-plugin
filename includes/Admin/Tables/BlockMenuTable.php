@@ -17,6 +17,11 @@ class BlockMenuTable extends \WP_List_Table{
         ) );
     }
 
+    /**
+     * Define the columns that are going to be used in the table
+     *
+     * @return void
+     */
     public function get_columns() {
         return array(
             'cb' => '<input type="checkbox"/>',
@@ -28,16 +33,33 @@ class BlockMenuTable extends \WP_List_Table{
         );
     }
 
+    /**
+     * Default column value fallback
+     *
+     * @return array
+     */
     protected function column_default( $item, $column_name ) {
         return $item[$column_name] ?? '';
     }
 
+    /**
+     * Render the bulk edit checkbox
+     *
+     * @param array $item
+     * @return string
+     */
     public function column_cb( $item ) {
         return sprintf(
             '<input type="checkbox" name="id[]" value="%s"/>', $item['id']
         );
     }
 
+    /**
+     * Render the first name column
+     *
+     * @param array $item
+     * @return string
+     */
     public function column_fname( $item ) {
         $actions = array(
             'edit' => sprintf('<a href="?page=%s&action=%s&person=%s">Edit</a>', $_REQUEST['page'], 'edit', $item['id']),
@@ -47,12 +69,20 @@ class BlockMenuTable extends \WP_List_Table{
         return sprintf('%1$s %2$s', $item['fname'], $this->row_actions($actions) );
     }
 
+    /**
+     * Decide which columns to activate the sorting functionality on
+     *
+     * @return array
+     */
     public function get_sortable_columns() {
-        return array(
-            'fname' => ['fname', true],
-        );
+        return [];
     }
 
+    /**
+     * Prepare the table with different parameters, pagination, columns and table elements
+     *
+     * @return void
+     */
     public function prepare_items() {
         $columns = $this->get_columns();
         $hidden = [];
@@ -63,6 +93,11 @@ class BlockMenuTable extends \WP_List_Table{
         $this->items = $this->get_table_data();
     }
 
+    /**
+     * Get the table data
+     *
+     * @return array
+     */
     public function get_table_data() {
 
         $table_data = Ajax::fetch_table_data_from_api();

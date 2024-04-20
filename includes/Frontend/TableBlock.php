@@ -9,6 +9,11 @@ class TableBlock {
         add_action( 'init', [ $this, 'register_block' ]);
     }
 
+    /**
+     * Register the block
+     *
+     * @return void
+     */
     public function register_block() {
         register_block_type( 'awesome-motive/table-block', [
             'editor_script' => 'awesome-motive-block-script',
@@ -17,6 +22,12 @@ class TableBlock {
         ]);
     }
 
+    /**
+     * Render the block
+     *
+     * @param array $attributes
+     * @return string
+     */
     public function render_am_table_block( $attributes ) {
         $api_data = Ajax::fetch_table_data_from_api();
 
@@ -35,7 +46,7 @@ class TableBlock {
         ob_start();
 
         require_once AWESOME_MOTIVE_PATH . '/includes/views/table-block-frontend.php';
-        
+
         return ob_get_clean();
     }
 }
