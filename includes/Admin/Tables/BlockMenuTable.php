@@ -66,7 +66,7 @@ class BlockMenuTable extends \WP_List_Table{
             'delete' => sprintf('<a href="?page=%s&action=%s&person=%s">Delete</a>', $_REQUEST['page'], 'delete',  $item['id']),
         );
 
-        return sprintf('%1$s %2$s', $item['fname'], $this->row_actions($actions) );
+        return $item['fname'] . $this->row_actions($actions);
     }
 
     /**
