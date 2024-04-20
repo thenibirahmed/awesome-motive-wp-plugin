@@ -46,7 +46,7 @@ function AwesomeMotiveTableBlock(props) {
             jQuery.ajax({
                 url: am_data.ajax_url,
                 data: {
-                    action: 'am_get_table_data',
+                    action: 'am-get-table-data',
                     nonce: am_data.nonce,
                 },
                 type: 'GET',

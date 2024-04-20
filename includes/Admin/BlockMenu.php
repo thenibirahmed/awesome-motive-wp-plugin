@@ -3,6 +3,9 @@
 namespace AwesomeMotive\Admin;
 
 class BlockMenu {
+
+    public $block_menu;
+    
     public function __construct() {
         add_action( 'admin_menu', array( $this, 'add_menu' ) );
     }

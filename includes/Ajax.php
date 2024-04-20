@@ -4,8 +4,8 @@ namespace AwesomeMotive;
 
 class Ajax {
     public function __construct() {
-        add_action( 'wp_ajax_am_get_table_data', [ $this, 'get_table_data' ]);
-        add_action( 'wp_ajax_nopriv_am_get_table_data', [ $this, 'get_table_data' ]);
+        add_action( 'wp_ajax_am-get-table-data', [ $this, 'get_table_data' ]);
+        add_action( 'wp_ajax_nopriv_am-get-table-data', [ $this, 'get_table_data' ]);
     }
 
     /**
