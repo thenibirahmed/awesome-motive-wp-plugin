@@ -7,7 +7,7 @@ import { __ } from '@wordpress/i18n';
 const { useState, useEffect } = wp.element;
 
 wp.blocks.registerBlockType( 'awesome-motive/table-block', {
-    title: 'AM Table Block',
+    title: __('AM Table Block', 'awesome-motive'),
     icon: 'smiley',
     category: 'common',
     attributes: {

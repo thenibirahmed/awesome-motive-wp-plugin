@@ -70,6 +70,7 @@ class Ajax {
         if ( !wp_verify_nonce($nonce, 'am-nonce') ) {
             wp_send_json_error( 'Invalid nonce' );
         }
+        
         ob_start();
         $my_table = new BlockMenuTable();
         $my_table->prepare_items();

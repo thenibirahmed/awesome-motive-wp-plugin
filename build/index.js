@@ -148,7 +148,7 @@ const {
   useEffect
 } = wp.element;
 wp.blocks.registerBlockType('awesome-motive/table-block', {
-  title: 'AM Table Block',
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('AM Table Block', 'awesome-motive'),
   icon: 'smiley',
   category: 'common',
   attributes: {
