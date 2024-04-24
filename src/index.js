@@ -11,7 +11,6 @@ wp.blocks.registerBlockType( 'awesome-motive/table-block', {
     icon: 'smiley',
     category: 'common',
     attributes: {
-        tableHeaders: {type: 'object'},
         hiddenColumns: {type: 'array', default: []},
     },
     edit: AwesomeMotiveTableBlock,
